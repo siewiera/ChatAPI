@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using ChatAPI.Entities;
 using ChatAPI.Interface;
-using ChatAPI.Models;
+using ChatAPI.Models.UsersDto;
 using ChatAPI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -28,11 +28,18 @@ namespace ChatAPI.Controllers
             return NoContent();
         }
 
+        [HttpDelete]
+        public ActionResult DeleteAllUser()
+        {
+            _userService.DeleteAllUser();
+
+            return NoContent();
+        }
 
         [HttpPost]
-        public ActionResult AddUser([FromBody] AddUserDto dto)
-        { 
-            var id = _userService.AddUser(dto);
+        public ActionResult RegistrationUser([FromBody] RegistrationUserDto dto)
+        {
+            var id = _userService.RegistrationUser(dto);
 
             return Created($"/api/chat/user/{id}", null);
         }

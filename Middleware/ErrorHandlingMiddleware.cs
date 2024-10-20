@@ -13,16 +13,21 @@ namespace ChatAPI.Middleware
         }
         public async Task InvokeAsync(HttpContext context, RequestDelegate next)
         {
-            try 
-            { 
+            try
+            {
                 await next.Invoke(context);
             }
-            catch(NotFoundException notFoundException)
+            catch (NotFoundException notFoundException)
             {
                 context.Response.StatusCode = 404;
                 await context.Response.WriteAsync(notFoundException.Message);
             }
-            catch(Exception e)
+            catch (ConflictException conflictException)
+            {
+                context.Response.StatusCode = 409;
+                await context.Response.WriteAsync(conflictException.Message);
+            }
+            catch (Exception e)
             {
                 _logger.LogError(e, e.Message);
 

@@ -1,11 +1,12 @@
-﻿using ChatAPI.Models;
+﻿using ChatAPI.Models.ConversationsDto;
+using ChatAPI.Models.MessagesDto;
 
 namespace ChatAPI.Interface
 {
     public interface IChatService
     {
-        IEnumerable<ConversationDto> Get { get; set; }
-
-        int SendMessage(SendMessageDto dto, int channelId);
+        int AddMessage(int channelId, int userId, AddMessageDto dto);
+        List<MessageDto> GetAllMessageByChannelId(int channelId);
+        List<MessageDto> GetAllMessageByChannelIdAndUserId(int channelId, int userId);
     }
 }

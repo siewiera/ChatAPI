@@ -1,14 +1,17 @@
-﻿using ChatAPI.Models;
+﻿using ChatAPI.Entities;
+using ChatAPI.Models.UsersDto;
 using ChatAPI.Services;
 
 namespace ChatAPI.Interface
 {
     public interface IUserService
     {
-        int AddUser(AddUserDto dto);
-        void DeleteUser(int id);
+        int RegistrationUser(RegistrationUserDto dto);
+        void DeleteUser(int userId);
+        void DeleteAllUser();
         IEnumerable<UserDto> GetAllUsers();
-        UserDto GetUserById(int id);
-        void UpdateUser(int id, UpdateUserDto dto);
+        UserDto GetUserById(int userId);
+        void UpdateUser(int userId, UpdateUserDto dto);
+        User GetUserDataById(int userId);
     }
 }

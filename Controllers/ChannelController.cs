@@ -1,5 +1,5 @@
 ﻿using ChatAPI.Interface;
-using ChatAPI.Models;
+using ChatAPI.Models.ChannelsDto;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ChatAPI.Controllers
@@ -18,23 +18,31 @@ namespace ChatAPI.Controllers
         [HttpPost]
         public ActionResult CreateChannel([FromBody] CreateChannelDto dto)
         {
-            var id = _channelService.CreateChannel(dto);
+            var channelId = _channelService.CreateChannel(dto);
 
-            return Created($"api/chat/channel{id}", null);
+            return Created($"api/chat/channel{channelId}", null);
         }
 
-        [HttpPut("{id}")]
-        public ActionResult UpdateChannel([FromRoute] int id, [FromBody] UpdateChannelDto dto)
-        {
-            _channelService.UpdateChannel(id, dto);
+        [HttpPut("{channelId}")]
+        public ActionResult UpdateChannel([FromRoute] int channelId, [FromBody] UpdateChannelDto dto)
+        {        
+            _channelService.UpdateChannel(channelId, dto);
 
             return Ok();
         }
 
-        [HttpDelete("{id}")]
-        public ActionResult DeleteChannel([FromRoute] int id)
+        [HttpDelete("{channelId}")]
+        public ActionResult DeleteChannel([FromRoute] int channelId)
         {
-            _channelService.DeleteChannel(id);
+            _channelService.DeleteChannel(channelId);
+
+            return NoContent();
+        }
+
+        [HttpDelete]
+        public ActionResult DeleteAllChannel()
+        {
+            _channelService.DeleteAllChannel();
 
             return NoContent();
         }
@@ -47,10 +55,10 @@ namespace ChatAPI.Controllers
             return Ok(channels);
         }
 
-        [HttpGet("{id}")]
-        public ActionResult<ChannelDto> GetChannelById([FromRoute] int id) 
+        [HttpGet("{channelId}")]
+        public ActionResult<ChannelDto> GetChannelById([FromRoute] int channelId) 
         { 
-            var channel = _channelService.GetChannelById(id);
+            var channel = _channelService.GetChannelById(channelId);
 
             return Ok(channel);
         }

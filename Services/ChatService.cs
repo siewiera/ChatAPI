@@ -2,7 +2,9 @@
 using ChatAPI.Entities;
 using ChatAPI.Exceptions;
 using ChatAPI.Interface;
-using ChatAPI.Models;
+using ChatAPI.Models.ConversationsDto;
+using ChatAPI.Models.MessagesDto;
+using Microsoft.EntityFrameworkCore;
 
 namespace ChatAPI.Services
 {
@@ -11,30 +13,67 @@ namespace ChatAPI.Services
         private readonly ChatDbContext _dbContext;
         private readonly IMapper _mapper;
         private readonly ILogger<ChatService> _logger;
+        private readonly IChannelService _channelService;
+        private readonly IUserService _userService;
 
-        public ChatService(ChatDbContext dbContext, IMapper mapper, ILogger<ChatService> logger)
+        public ChatService(ChatDbContext dbContext, IMapper mapper, ILogger<ChatService> logger, IChannelService channelService, IUserService userService)
         {
             _dbContext = dbContext;
             _mapper = mapper;
             _logger = logger;
+            _channelService = channelService;
+            _userService = userService;
         }
 
-        public int SendMessage(SendMessageDto dto, int channelId)
+        public int AddMessage(int channelId, int userId, AddMessageDto dto) 
         {
-            var channel = _dbContext.Channels.FirstOrDefault(c => c.Id == channelId);
+            var channel = _channelService.GetChannelDataById(channelId);
+            var user = _userService.GetUserDataById(userId);
 
-            if (channel is null)
-                throw new NotFoundException("Channel not found");
+            var message = _mapper.Map<Message>(dto);
+            message.UserId = userId;
+            message.Conversation.ChannelId = channelId;
+            message.Conversation.CreatAt = DateTime.Now;
+            message.CreationDate = DateTime.Now;
 
-            var sendMessage = _mapper.Map<Conversation>(dto);
-
-            _dbContext.Conversations.Add(sendMessage);
+            _dbContext.Add(message);
             _dbContext.SaveChanges();
 
-            return sendMessage.Id;
+            return message.Id;
         }
 
+        public List<MessageDto> GetAllMessageByChannelId(int channelId) 
+        {
+            var channel = _channelService.GetChannelDataById(channelId);
 
-        public IEnumerable<ConversationDto> Get { get; set; }
+            var messages = _dbContext
+                .Messages
+                .Include(m => m.User)
+                .Include(m => m.Conversation)
+                .Where(m => m.Conversation.ChannelId == channelId);
+
+            var messagesDto = _mapper.Map<List<MessageDto>>(messages);
+
+            return messagesDto;
+        }
+
+        public List<MessageDto> GetAllMessageByChannelIdAndUserId(int channelId, int userId)
+        {
+            var channel = _channelService.GetChannelDataById(channelId);
+            var user = _userService.GetUserDataById(userId);
+
+            var messages = _dbContext
+                .Messages
+                .Include(m => m.User)
+                .Include(m => m.Conversation)
+                .Where(m => m.Conversation.ChannelId == channelId 
+                    && m.UserId == userId);
+             
+
+            var messagesDto = _mapper.Map<List<MessageDto>>(messages);
+
+            return messagesDto;
+        }
+
     }
 }

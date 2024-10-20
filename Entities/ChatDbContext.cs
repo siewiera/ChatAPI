@@ -14,14 +14,37 @@ namespace ChatAPI.Entities
         public DbSet<Conversation> Conversations { get; set; }
         public DbSet<Message> Messages { get; set; }
         public DbSet<User> Users { get; set; }
-        public DbSet<UserConversation> UserConversations { get; set; }
+        public DbSet<Token> Tokens { get; set; }
         public DbSet<Channel> Channels { get; set; }
 
 
-        /*protected override void OnModelCreating(ModelBuilder modelBuilder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
-        }*/
+            modelBuilder.Entity<Token>()
+                .Property(t => t.Type)
+                .HasConversion<string>();
+
+            modelBuilder.Entity<User>(us => 
+            {
+                us.Property(u => u.CreatedAt)
+                .HasColumnType("datetime2(0)");
+
+                us.Property(u => u.ModifiedAt)
+                .HasColumnType("datetime2(0)");
+            });
+
+            modelBuilder.Entity<Conversation>()
+                .Property(c => c.CreatAt)
+                .HasColumnType("datetime2(0)");
+
+            modelBuilder.Entity<Message>()
+                .Property(m => m.CreationDate)
+                .HasColumnType("datetime2(0)");
+
+            modelBuilder.Entity<Token>()
+                .Property(t => t.ExpiryDate)
+                .HasColumnType("datetime2(0)");
+        }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

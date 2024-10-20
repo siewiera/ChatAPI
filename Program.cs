@@ -1,7 +1,9 @@
+using ChatAPI;
 using ChatAPI.Entities;
 using ChatAPI.Interface;
 using ChatAPI.Middleware;
 using ChatAPI.Services;
+using ChatAPI.Services.SendMail;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using NLog;
@@ -22,8 +24,14 @@ try
     builder.Services.AddScoped<IUserService, UserService>();
     builder.Services.AddScoped<IChannelService, ChannelService>();
     builder.Services.AddScoped<IChatService, ChatService>();
+    builder.Services.AddScoped<ITokenService, TokenService>();
+    builder.Services.AddScoped<ISendMail, SendMail>();
+    builder.Services.AddScoped<IAccountService, AccountService>();
+
+
 
     builder.Services.AddScoped<ErrorHandlingMiddleware>();
+    builder.Services.AddScoped<BCryptHash>();
     builder.Services.AddSwaggerGen();
     builder.Services.AddSignalR();
 

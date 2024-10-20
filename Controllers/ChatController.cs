@@ -1,11 +1,12 @@
 ﻿using ChatAPI.Interface;
 using ChatAPI.Models;
+using ChatAPI.Models.MessagesDto;
 using ChatAPI.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ChatAPI.Controllers
 {
-    [Route("api/chat/{channelId}/")]
+    [Route("api/chat/conversation/channel{channelId}/")]
     [ApiController]
     public class ChatController : ControllerBase
     {
@@ -16,13 +17,45 @@ namespace ChatAPI.Controllers
             _chatService = chatService;
         }
 
-
-        [HttpPost]
-        public ActionResult SendMessage([FromBody] SendMessageDto dto)
+        [HttpPost("user{userId}")]
+        public ActionResult AddMessage([FromRoute] int channelId, [FromRoute] int userId, [FromBody] AddMessageDto dto) 
         {
-            var id = _chatService.SendMessage(dto, channelId);
+            var message = _chatService.AddMessage(channelId, userId, dto);
 
-            return Created($"/api/chat/user/{id}", null);
+            return Created($"api/chat/conversation/channel{channelId}/user{userId}", null);
         }
+
+        [HttpGet]
+        public ActionResult<IEnumerable<MessageDto>> GetAllMessageByChannelId([FromRoute] int channelId) 
+        {
+            var messages = _chatService.GetAllMessageByChannelId(channelId);
+
+            return Ok(messages);
+        }
+
+        [HttpGet("user{userId}")]
+        public ActionResult<IEnumerable<MessageDto>> GetAllMessageByChannelIdAndUserId([FromRoute] int channelId, [FromRoute] int userId)
+        {
+            var messages = _chatService.GetAllMessageByChannelIdAndUserId(channelId, userId);
+
+            return Ok(messages);
+        }
+
+
+        //[HttpPost]
+        //public ActionResult SendMessage([FromBody] CreateUserConversationDto ucdto, [FromBody] CreateMessageDto mdto, [FromRoute] int channelId)
+        //{
+        //    var id = _chatService.SendMessage(ucdto, mdto, channelId);
+
+        //    return Created($"/api/chat/{id}/conversation", null);
+        //}
+
+        //[HttpGet]
+        //public ActionResult<IEnumerable<SendMessageDto>> GetAllMessagel()
+        //{
+        //    var message = _chatService.GetAllMessage();
+
+        //    return Ok(message);
+        //}
     }
 }

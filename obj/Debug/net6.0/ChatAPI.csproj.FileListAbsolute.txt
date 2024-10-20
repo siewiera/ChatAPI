@@ -72,3 +72,8 @@ C:\Users\BPX S Siewiera\source\repos\ChatAPI\bin\Debug\net6.0\Swashbuckle.AspNet
 C:\Users\BPX S Siewiera\source\repos\ChatAPI\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\Users\BPX S Siewiera\source\repos\ChatAPI\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerUI.dll
 C:\Users\BPX S Siewiera\source\repos\ChatAPI\obj\Debug\net6.0\ChatAPI.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\BPX S Siewiera\source\repos\ChatAPI\bin\Debug\net6.0\Newtonsoft.Json.dll
+C:\Users\BPX S Siewiera\source\repos\ChatAPI\bin\Debug\net6.0\System.Net.WebSockets.WebSocketProtocol.dll
+C:\Users\BPX S Siewiera\source\repos\ChatAPI\obj\Debug\net6.0\ChatAPI.sourcelink.json
+C:\Users\BPX S Siewiera\source\repos\ChatAPI\bin\Debug\net6.0\BCrypt.Net-Next.dll
+C:\Users\BPX S Siewiera\source\repos\ChatAPI\bin\Debug\net6.0\smtpConfig.json

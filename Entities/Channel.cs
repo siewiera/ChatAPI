@@ -10,7 +10,6 @@ namespace ChatAPI.Entities
         public string Name { get; set; }
         [Required]
         public bool hasPassword { get; set; }
-        [MaxLength(25)]
         public string Password { get; set; }
         [Required]
         public bool Blocked { get; set; }
