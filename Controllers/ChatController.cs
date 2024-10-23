@@ -28,7 +28,7 @@ namespace ChatAPI.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<MessageDto>> GetAllMessageByChannelId([FromRoute] int channelId) 
         {
-            var messages = _chatService.GetAllMessageByChannelId(channelId);
+            var messages = _chatService.GetAllChannelMessages(channelId);
 
             return Ok(messages);
         }
@@ -36,26 +36,25 @@ namespace ChatAPI.Controllers
         [HttpGet("user{userId}")]
         public ActionResult<IEnumerable<MessageDto>> GetAllMessageByChannelIdAndUserId([FromRoute] int channelId, [FromRoute] int userId)
         {
-            var messages = _chatService.GetAllMessageByChannelIdAndUserId(channelId, userId);
+            var messages = _chatService.GetAllChannelMessageByUserId(channelId, userId);
 
             return Ok(messages);
         }
 
+        [HttpDelete("message{messageId}")]
+        public ActionResult DeleteChannelMessageById([FromRoute] int channelId, [FromRoute] int messageId)
+        {
+            _chatService.DeleteChannelMessageById(channelId, messageId);
 
-        //[HttpPost]
-        //public ActionResult SendMessage([FromBody] CreateUserConversationDto ucdto, [FromBody] CreateMessageDto mdto, [FromRoute] int channelId)
-        //{
-        //    var id = _chatService.SendMessage(ucdto, mdto, channelId);
+            return NoContent();
+        }
 
-        //    return Created($"/api/chat/{id}/conversation", null);
-        //}
+        [HttpDelete()]
+        public ActionResult DeleteChannelMessageById([FromRoute] int channelId)
+        {
+            _chatService.DeleteAllChannelMessages(channelId);
 
-        //[HttpGet]
-        //public ActionResult<IEnumerable<SendMessageDto>> GetAllMessagel()
-        //{
-        //    var message = _chatService.GetAllMessage();
-
-        //    return Ok(message);
-        //}
+            return NoContent();
+        }
     }
 }

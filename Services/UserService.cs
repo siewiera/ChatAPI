@@ -115,7 +115,7 @@ namespace ChatAPI.Services
             _dbContext.SaveChanges();
 
             string subject = "Account activation";
-            string tokenLink = $"<a href='https://localhost:7202/api/chat/account/{tokenNumber.ToString()}'>https://localhost:7202/api/chat/account/{tokenNumber.ToString()}</a>";
+            string tokenLink = $"<a href='https://localhost:7202/api/chat/account/account-activation/{tokenNumber.ToString()}'>https://localhost:7202/api/chat/account/account-activation/{tokenNumber.ToString()}</a>";
             string body = $"To confirm the account activation, click on the generated token <br><br> {tokenLink}";
 
             _sendMail.Send(user.Email, subject, body);

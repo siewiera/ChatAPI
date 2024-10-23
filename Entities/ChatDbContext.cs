@@ -16,6 +16,7 @@ namespace ChatAPI.Entities
         public DbSet<User> Users { get; set; }
         public DbSet<Token> Tokens { get; set; }
         public DbSet<Channel> Channels { get; set; }
+        public DbSet<Session> Sessions { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -44,6 +45,22 @@ namespace ChatAPI.Entities
             modelBuilder.Entity<Token>()
                 .Property(t => t.ExpiryDate)
                 .HasColumnType("datetime2(0)");
+
+
+            /*#####################################################*/
+
+            modelBuilder.Entity<Message>()
+                .HasOne(m => m.Conversation)
+                .WithMany(c => c.Messages)
+                .HasForeignKey(m => m.ConversationId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Session>()
+                .HasOne(s => s.User)
+                .WithOne(u => u.Session)
+                .HasForeignKey<Session>(u => u.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

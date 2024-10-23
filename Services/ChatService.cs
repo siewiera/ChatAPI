@@ -42,7 +42,7 @@ namespace ChatAPI.Services
             return message.Id;
         }
 
-        public List<MessageDto> GetAllMessageByChannelId(int channelId) 
+        public List<MessageDto> GetAllChannelMessages(int channelId) 
         {
             var channel = _channelService.GetChannelDataById(channelId);
 
@@ -57,7 +57,7 @@ namespace ChatAPI.Services
             return messagesDto;
         }
 
-        public List<MessageDto> GetAllMessageByChannelIdAndUserId(int channelId, int userId)
+        public List<MessageDto> GetAllChannelMessageByUserId(int channelId, int userId)
         {
             var channel = _channelService.GetChannelDataById(channelId);
             var user = _userService.GetUserDataById(userId);
@@ -73,6 +73,47 @@ namespace ChatAPI.Services
             var messagesDto = _mapper.Map<List<MessageDto>>(messages);
 
             return messagesDto;
+        }
+
+
+        public void DeleteChannelMessageById(int channelId, int messageId)
+        { 
+            var channel = _channelService.GetChannelDataById(channelId);
+
+            var message = _dbContext
+                .Messages
+                .Include(m => m.User)
+                .Include(m => m.Conversation)
+                .FirstOrDefault(m => m.Conversation.ChannelId == channelId
+                    && m.Id == messageId);
+
+            //var conversation = _dbContext
+            //    .Conversations
+
+            if(message is null)
+                throw new NotFoundException("Message ID does not exist in this channel");
+
+            _dbContext.Remove(message);
+            //_dbContext.Conversations.Remove(message);
+            _dbContext.SaveChanges();
+        }
+
+        public void DeleteAllChannelMessages(int channelId) 
+        {
+            var channel = _channelService.GetChannelDataById(channelId);
+
+            var message = _dbContext
+                .Messages
+                .Include(m => m.User)
+                .Include(m => m.Conversation)
+                .Where(m => m.Conversation.ChannelId == channelId)
+                .ToList();
+
+            if (message is null)
+                throw new NotFoundException("There is no messages on this channel");
+
+            _dbContext.RemoveRange(message);
+            _dbContext.SaveChanges();
         }
 
     }

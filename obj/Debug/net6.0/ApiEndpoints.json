@@ -325,6 +325,43 @@
   },
   {
     "ContainingType": "ChatAPI.Controllers.ChatController",
+    "Method": "DeleteChannelMessageById",
+    "RelativePath": "api/chat/conversation/channel{channelId}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "channelId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ChatAPI.Controllers.ChatController",
+    "Method": "DeleteChannelMessageById",
+    "RelativePath": "api/chat/conversation/channel{channelId}/message{messageId}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "channelId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "messageId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ChatAPI.Controllers.ChatController",
     "Method": "AddMessage",
     "RelativePath": "api/chat/conversation/channel{channelId}/user{userId}",
     "HttpMethod": "POST",

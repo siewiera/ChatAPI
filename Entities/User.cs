@@ -20,6 +20,7 @@ namespace ChatAPI.Entities
         [Required]
         public bool Active { get; set; }
 
+        public virtual Session Session { get; set; }
         public virtual ICollection<Message> Messages { get; set; }
         public virtual ICollection<Token> Tokens { get; set; }
     }
