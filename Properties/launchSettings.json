@@ -4,7 +4,7 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:60518",
+      "applicationUrl": "http://127.0.0.1t:60518",
       "sslPort": 44389
     }
   },
@@ -14,7 +14,7 @@
       "dotnetRunMessages": true,
       "launchBrowser": false,
       "launchUrl": "api/chat",
-      "applicationUrl": "https://localhost:7202;http://localhost:5132",
+      "applicationUrl": "https://127.0.0.1:7202;http://127.0.0.1:5132",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

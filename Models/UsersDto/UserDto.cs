@@ -19,6 +19,14 @@ namespace ChatAPI.Models.UsersDto
         public bool Blocked { get; set; }
         [Required]
         public bool Active { get; set; }
+
+        //public virtual Session Session { get; set; }
+        [Required]
+        public Guid SessionId { get; set; }
+        [Required]
+        public DateTime LoginTime { get; set; }
+        public DateTime LastAction { get; set; }
+
         public ICollection<MessageDto> Messages { get; set; }
         public ICollection<TokenDto> Tokens { get; set; }
     }

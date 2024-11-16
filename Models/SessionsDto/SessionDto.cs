@@ -1,10 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Security.Principal;
+﻿using ChatAPI.Entities;
+using System.ComponentModel.DataAnnotations;
 
-namespace ChatAPI.Entities
+namespace ChatAPI.Models.SessionsDto
 {
-    public class Session
-    {       
+    public class SessionDto
+    {
         public int Id { get; set; }
         [Required]
         public Guid SessionId { get; set; }
@@ -13,7 +13,8 @@ namespace ChatAPI.Entities
         public DateTime LastAction { get; set; }
         public string Ip { get; set; }
 
+        //user
         public int UserId { get; set; }
-        public virtual User User { get; set; }
+        public string Nickname { get; set; }
     }
 }

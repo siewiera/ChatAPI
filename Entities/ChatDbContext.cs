@@ -46,6 +46,15 @@ namespace ChatAPI.Entities
                 .Property(t => t.ExpiryDate)
                 .HasColumnType("datetime2(0)");
 
+            modelBuilder.Entity<Session>(s =>
+            {
+                s.Property(se => se.LoginTime)
+                .HasColumnType("datetime2(0)");
+
+                s.Property(se => se.LastAction)
+                .HasColumnType("datetime2(0)");
+            });
+
 
             /*#####################################################*/
 

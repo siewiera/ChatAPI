@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ChatAPI.Controllers
 {
-    [Route("api/chat/conversation/channel{channelId}/")]
+    [Route("api/chat/conversation/channel/{channelId}/")]
     [ApiController]
     public class ChatController : ControllerBase
     {
@@ -49,7 +49,7 @@ namespace ChatAPI.Controllers
             return NoContent();
         }
 
-        [HttpDelete()]
+        [HttpDelete]
         public ActionResult DeleteChannelMessageById([FromRoute] int channelId)
         {
             _chatService.DeleteAllChannelMessages(channelId);

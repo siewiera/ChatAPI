@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ChatAPI.Migrations
 {
     [DbContext(typeof(ChatDbContext))]
-    [Migration("20240930202850_Init")]
+    [Migration("20241027145056_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -103,6 +103,38 @@ namespace ChatAPI.Migrations
                     b.ToTable("Messages");
                 });
 
+            modelBuilder.Entity("ChatAPI.Entities.Session", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Ip")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("LastAction")
+                        .HasColumnType("datetime2(0)");
+
+                    b.Property<DateTime>("LoginTime")
+                        .HasColumnType("datetime2(0)");
+
+                    b.Property<Guid>("SessionId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
+                    b.ToTable("Sessions");
+                });
+
             modelBuilder.Entity("ChatAPI.Entities.Token", b =>
                 {
                     b.Property<int>("Id")
@@ -114,9 +146,8 @@ namespace ChatAPI.Migrations
                     b.Property<DateTime>("ExpiryDate")
                         .HasColumnType("datetime2(0)");
 
-                    b.Property<string>("TokenNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<Guid>("TokenNumber")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Type")
                         .IsRequired()
@@ -202,6 +233,17 @@ namespace ChatAPI.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("ChatAPI.Entities.Session", b =>
+                {
+                    b.HasOne("ChatAPI.Entities.User", "User")
+                        .WithOne("Session")
+                        .HasForeignKey("ChatAPI.Entities.Session", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("ChatAPI.Entities.Token", b =>
                 {
                     b.HasOne("ChatAPI.Entities.User", "User")
@@ -226,6 +268,9 @@ namespace ChatAPI.Migrations
             modelBuilder.Entity("ChatAPI.Entities.User", b =>
                 {
                     b.Navigation("Messages");
+
+                    b.Navigation("Session")
+                        .IsRequired();
 
                     b.Navigation("Tokens");
                 });

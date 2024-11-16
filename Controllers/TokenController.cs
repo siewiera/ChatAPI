@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ChatAPI.Controllers
 {
-    [Route("api/chat/{userId}/token")]
+    [Route("api/chat/user/{userId}/token")]
     [ApiController]
     public class TokenController : ControllerBase
     {
@@ -61,7 +61,7 @@ namespace ChatAPI.Controllers
         }
 
         [HttpDelete("{tokenId}")]
-        public ActionResult MyProperty([FromRoute] int userId, [FromRoute] int tokenId) 
+        public ActionResult DeleteUserToken([FromRoute] int userId, [FromRoute] int tokenId) 
         {
             _tokenService.DeleteUserToken(userId, tokenId);
 

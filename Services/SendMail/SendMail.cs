@@ -8,7 +8,8 @@ namespace ChatAPI.Services.SendMail
 {
     public class SendMail : ISendMail
     {
-        private string _configFilePath = "smtpConfig.json";
+        //private string _configFilePath = "smtpConfig.json";
+        private string _configFilePath = Path.Combine("Settings", "smtpConfig.json");
         //public SendMail(string configFilePath = "smtpConfig.json")
         //{
         //    _configFilePath = configFilePath;
@@ -20,10 +21,16 @@ namespace ChatAPI.Services.SendMail
         }
 
         private SmtpConfig LoadSmtpConfig()
-        {
-            var jsonConfig = File.ReadAllText(_configFilePath);
-
-            return JsonConvert.DeserializeObject<SmtpConfig>(jsonConfig);
+        {        
+            try
+            {
+                var jsonConfig = File.ReadAllText(_configFilePath);
+                return JsonConvert.DeserializeObject<SmtpConfig>(jsonConfig);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }          
         }
 
         public void Send(string toAddress, string subject, string body)
@@ -51,7 +58,7 @@ namespace ChatAPI.Services.SendMail
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"An error occurred while sending the email: {ex.Message}");
+                throw new Exception($"An error occurred while sending the email: {ex.Message}");
             }
 
         }

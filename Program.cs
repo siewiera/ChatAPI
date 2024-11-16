@@ -3,7 +3,9 @@ using ChatAPI.Entities;
 using ChatAPI.Interface;
 using ChatAPI.Middleware;
 using ChatAPI.Services;
+using ChatAPI.Services.ScheduleService;
 using ChatAPI.Services.SendMail;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using NLog;
@@ -21,15 +23,16 @@ try
     builder.Services.AddControllers();
     builder.Services.AddDbContext<ChatDbContext>(option => option.UseSqlServer(builder.Configuration.GetConnectionString(connectionType[1])));
     builder.Services.AddAutoMapper(typeof(Program).Assembly);
+
     builder.Services.AddScoped<IUserService, UserService>();
     builder.Services.AddScoped<IChannelService, ChannelService>();
     builder.Services.AddScoped<IChatService, ChatService>();
     builder.Services.AddScoped<ITokenService, TokenService>();
     builder.Services.AddScoped<ISendMail, SendMail>();
     builder.Services.AddScoped<IAccountService, AccountService>();
+    builder.Services.AddScoped<ISessionService, SessionService>();
 
-
-
+    builder.Services.AddHostedService<ScheduleService>();
     builder.Services.AddScoped<ErrorHandlingMiddleware>();
     builder.Services.AddScoped<BCryptHash>();
     builder.Services.AddSwaggerGen();
@@ -58,7 +61,18 @@ try
 
     app.UseAuthorization();
 
-    app.MapControllers();
+    app.UseForwardedHeaders(new ForwardedHeadersOptions
+    {
+        ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+    });
+
+    app.UseRouting();
+    app.UseEndpoints(endpoints =>
+    {
+        endpoints.MapControllers();
+    });
+
+    //app.MapControllers();
 
     app.Run();
 }

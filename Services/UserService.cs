@@ -40,6 +40,7 @@ namespace ChatAPI.Services
                 .Users
                 .Include(u => u.Tokens)
                 .Include(u => u.Messages)
+                .Include(u => u.Session)
                 .FirstOrDefault(u => u.Id == userId);
 
             if (user is null)
@@ -62,6 +63,7 @@ namespace ChatAPI.Services
                 .Users
                 .Include(u => u.Messages)
                 .Include(u => u.Tokens)
+                .Include(u => u.Session)
                 .ToList();
 
             var usersDtos = _mapper.Map<List<UserDto>>(users);

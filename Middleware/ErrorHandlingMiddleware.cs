@@ -19,11 +19,15 @@ namespace ChatAPI.Middleware
             }
             catch (NotFoundException notFoundException)
             {
+                _logger.LogError(notFoundException, notFoundException.Message);
+
                 context.Response.StatusCode = 404;
                 await context.Response.WriteAsync(notFoundException.Message);
             }
             catch (ConflictException conflictException)
             {
+                _logger.LogError(conflictException, conflictException.Message);
+
                 context.Response.StatusCode = 409;
                 await context.Response.WriteAsync(conflictException.Message);
             }

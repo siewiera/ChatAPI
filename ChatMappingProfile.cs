@@ -4,6 +4,7 @@ using ChatAPI.Models.AccountDto;
 using ChatAPI.Models.ChannelsDto;
 using ChatAPI.Models.ConversationsDto;
 using ChatAPI.Models.MessagesDto;
+using ChatAPI.Models.SessionsDto;
 using ChatAPI.Models.TokensDto;
 using ChatAPI.Models.UsersDto;
 
@@ -20,7 +21,10 @@ namespace ChatAPI
             CreateMap<Conversation, ConversationDto>()
                 .ForMember(cd => cd.ChannelName, c => c.MapFrom(c => c.Channel.Name));
 
-            CreateMap<User, UserDto>();
+            CreateMap<User, UserDto>()
+                .ForMember(ud => ud.SessionId, u => u.MapFrom(u => u.Session.SessionId))
+                .ForMember(ud => ud.LoginTime, u => u.MapFrom(u => u.Session.LoginTime))
+                .ForMember(ud => ud.LastAction, u => u.MapFrom(u => u.Session.LastAction));
             CreateMap<UpdateUserDto, User>();
             CreateMap<RegistrationUserDto, User>()
                 .ForMember(t => t.Tokens, r => r.MapFrom(dto => new List<Token>()
@@ -63,10 +67,12 @@ namespace ChatAPI
                 .ForMember(t => t.User, u => u.MapFrom(u => u.Email))
                 .ForMember(t => t.User, u => u.MapFrom(u => u.ModifiedAt));
 
+            CreateMap<Session, SessionDto>()
+                .ForMember(sd => sd.UserId, s => s.MapFrom(s => s.UserId))
+                .ForMember(sd => sd.Nickname, s => s.MapFrom(s => s.User.Nickname));
+            CreateMap<CreateSessionDto, Session>();
+            CreateMap<IncreasingSessionTimeDto, Session>();
 
-            /* CreateMap<CreateRestaurant, Restaurant>()
-                 .ForMember(r => r.Adress, r => r.MapFrom(dto => new Adress()
-                 { City = r.City, PostalCode = r.PostalCode, Street = r.Street }));*/
         }
     }
 }

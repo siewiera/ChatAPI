@@ -1,136 +1,5 @@
 [
   {
-    "ContainingType": "ChatAPI.Controllers.TokenController",
-    "Method": "GetAllTokensByUserId",
-    "RelativePath": "api/chat/{userId}/token",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "userId",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[ChatAPI.Models.TokensDto.TokenDto, ChatAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "ChatAPI.Controllers.TokenController",
-    "Method": "GenerateToken",
-    "RelativePath": "api/chat/{userId}/token",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "dto",
-        "Type": "ChatAPI.Models.TokensDto.GenerateTokenDto",
-        "IsRequired": true
-      },
-      {
-        "Name": "userId",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "ChatAPI.Controllers.TokenController",
-    "Method": "DeleteAllTokens",
-    "RelativePath": "api/chat/{userId}/token",
-    "HttpMethod": "DELETE",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "userId",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "ChatAPI.Controllers.TokenController",
-    "Method": "GetTokenByUserIdAndTokenId",
-    "RelativePath": "api/chat/{userId}/token/{tokenId}",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "userId",
-        "Type": "System.Int32",
-        "IsRequired": true
-      },
-      {
-        "Name": "tokenId",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "ChatAPI.Controllers.TokenController",
-    "Method": "UpdateToken",
-    "RelativePath": "api/chat/{userId}/token/{tokenId}",
-    "HttpMethod": "PUT",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "dto",
-        "Type": "ChatAPI.Models.TokensDto.UpdateTokenDto",
-        "IsRequired": true
-      },
-      {
-        "Name": "userId",
-        "Type": "System.Int32",
-        "IsRequired": true
-      },
-      {
-        "Name": "tokenId",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "ChatAPI.Controllers.TokenController",
-    "Method": "MyProperty",
-    "RelativePath": "api/chat/{userId}/token/{tokenId}",
-    "HttpMethod": "DELETE",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "userId",
-        "Type": "System.Int32",
-        "IsRequired": true
-      },
-      {
-        "Name": "tokenId",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
     "ContainingType": "ChatAPI.Controllers.AccountController",
     "Method": "AccountActivation",
     "RelativePath": "api/chat/account/account-activation/{tokenNumber}",
@@ -300,7 +169,7 @@
   {
     "ContainingType": "ChatAPI.Controllers.ChatController",
     "Method": "GetAllMessageByChannelId",
-    "RelativePath": "api/chat/conversation/channel{channelId}",
+    "RelativePath": "api/chat/conversation/channel/{channelId}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -326,7 +195,7 @@
   {
     "ContainingType": "ChatAPI.Controllers.ChatController",
     "Method": "DeleteChannelMessageById",
-    "RelativePath": "api/chat/conversation/channel{channelId}",
+    "RelativePath": "api/chat/conversation/channel/{channelId}",
     "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
@@ -342,7 +211,7 @@
   {
     "ContainingType": "ChatAPI.Controllers.ChatController",
     "Method": "DeleteChannelMessageById",
-    "RelativePath": "api/chat/conversation/channel{channelId}/message{messageId}",
+    "RelativePath": "api/chat/conversation/channel/{channelId}/message{messageId}",
     "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
@@ -363,7 +232,7 @@
   {
     "ContainingType": "ChatAPI.Controllers.ChatController",
     "Method": "AddMessage",
-    "RelativePath": "api/chat/conversation/channel{channelId}/user{userId}",
+    "RelativePath": "api/chat/conversation/channel/{channelId}/user{userId}",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -389,7 +258,7 @@
   {
     "ContainingType": "ChatAPI.Controllers.ChatController",
     "Method": "GetAllMessageByChannelIdAndUserId",
-    "RelativePath": "api/chat/conversation/channel{channelId}/user{userId}",
+    "RelativePath": "api/chat/conversation/channel/{channelId}/user{userId}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -525,5 +394,236 @@
         "StatusCode": 200
       }
     ]
+  },
+  {
+    "ContainingType": "ChatAPI.Controllers.SessionController",
+    "Method": "GetClientIPAddress",
+    "RelativePath": "api/chat/user/{userId}/session",
+    "HttpMethod": "",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.String",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "ChatAPI.Controllers.SessionController",
+    "Method": "GetUserSession",
+    "RelativePath": "api/chat/user/{userId}/session",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "ChatAPI.Models.SessionsDto.SessionDto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "ChatAPI.Controllers.SessionController",
+    "Method": "CreateUserSession",
+    "RelativePath": "api/chat/user/{userId}/session",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ChatAPI.Controllers.SessionController",
+    "Method": "DeleteUserSession",
+    "RelativePath": "api/chat/user/{userId}/session",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ChatAPI.Controllers.SessionController",
+    "Method": "IncreasingSessionTime",
+    "RelativePath": "api/chat/user/{userId}/session",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ChatAPI.Controllers.TokenController",
+    "Method": "GetAllTokensByUserId",
+    "RelativePath": "api/chat/user/{userId}/token",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[ChatAPI.Models.TokensDto.TokenDto, ChatAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "ChatAPI.Controllers.TokenController",
+    "Method": "GenerateToken",
+    "RelativePath": "api/chat/user/{userId}/token",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "ChatAPI.Models.TokensDto.GenerateTokenDto",
+        "IsRequired": true
+      },
+      {
+        "Name": "userId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ChatAPI.Controllers.TokenController",
+    "Method": "DeleteAllTokens",
+    "RelativePath": "api/chat/user/{userId}/token",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ChatAPI.Controllers.TokenController",
+    "Method": "GetTokenByUserIdAndTokenId",
+    "RelativePath": "api/chat/user/{userId}/token/{tokenId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "tokenId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ChatAPI.Controllers.TokenController",
+    "Method": "UpdateToken",
+    "RelativePath": "api/chat/user/{userId}/token/{tokenId}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "ChatAPI.Models.TokensDto.UpdateTokenDto",
+        "IsRequired": true
+      },
+      {
+        "Name": "userId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "tokenId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ChatAPI.Controllers.TokenController",
+    "Method": "MyProperty",
+    "RelativePath": "api/chat/user/{userId}/token/{tokenId}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "tokenId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
   }
 ]
